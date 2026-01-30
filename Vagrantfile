@@ -4,7 +4,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-24.04"
   config.vm.box_version = "202510.26.0"
 
-  #config.vm.network "forwarded_port", guest: 3000, host: 3000, auto_correct: true
   config.vm.synced_folder ".", "/agent-workspace", type: "virtualbox"
 
   config.vm.provider "virtualbox" do |vb|
