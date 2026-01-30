@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
     echo "# APT INSTALL"
     echo "#########################################"
     apt update
-    apt install -y docker.io git unzip jq curl gh wget htop
+    apt install -y docker.io git unzip jq curl gh wget htop ansible
 
     echo "#########################################"
     echo "# APT UPGRADE"
