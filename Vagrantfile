@@ -57,17 +57,25 @@ Vagrant.configure("2") do |config|
   nvm alias default lts/*
 
   echo "#########################################"
-  echo "# IMPORT KEYS"
-  echo "#########################################"
-  ssh-import-id-gh awfulwoman
-
-  echo "#########################################"
   echo "# CLAUDE SETUP"
   echo "#########################################"
   curl -fsSL https://claude.ai/install.sh | bash
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
 
+
+  echo "#########################################"
+  echo "# CUSTOMISE USER"
+  echo "#########################################"
   echo "cd #{workspace_path}" >> $HOME/.bashrc
+
+  # Auto-start ssh-agent on first login
+  cat >> $HOME/.bashrc << 'EOF'
+  if [ ! -f ~/.ssh_reminder_shown ]; then
+    eval "$(ssh-agent -s)" > /dev/null
+    echo "==> SSH agent started. Add your key:"
+    ssh-add ~/.ssh/id_ed25519 && touch ~/.ssh_reminder_shown
+  fi
+  EOF
 
   SCRIPT
   config.vm.provision "shell", inline: $script, privileged: false
@@ -76,4 +84,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "file", source: "~/.ssh/id_ed25519", destination: ".ssh/id_ed25519"
   config.vm.provision "file", source: "~/.ssh/id_ed25519.pub", destination: ".ssh/id_ed25519.pub"
+
 end
