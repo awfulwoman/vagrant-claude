@@ -1,10 +1,13 @@
+# This Vagrantfile is used to wrap a VM around instances of Claude Code. This enables Claude to be run with much more relaxed permissions, without worrying about it going mental and trashing your laptop.
+
 vm_name = File.basename(Dir.getwd)
+workspace_path = "/workspace-#{vm_name}"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-24.04"
   config.vm.box_version = "202510.26.0"
 
-  config.vm.synced_folder ".", "/agent-workspace", type: "virtualbox"
+  config.vm.synced_folder ".", workspace_path, type: "virtualbox"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096"
@@ -34,7 +37,7 @@ Vagrant.configure("2") do |config|
     echo "# USER SETUP"
     echo "#########################################"
     usermod -aG docker vagrant
-    chown -R vagrant:vagrant /agent-workspace
+    chown -R vagrant:vagrant #{workspace_path}
     
   SHELL
 end
@@ -64,9 +67,13 @@ Vagrant.configure("2") do |config|
   curl -fsSL https://claude.ai/install.sh | bash
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
 
-  echo "cd /agent-workspace" >> $HOME/.bashrc
+  echo "cd #{workspace_path}" >> $HOME/.bashrc
 
   SCRIPT
-
   config.vm.provision "shell", inline: $script, privileged: false
+
+  # Copy over credentials to working VM
+  config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
+  config.vm.provision "file", source: "~/.ssh/id_ed25519", destination: ".ssh/id_ed25519"
+  config.vm.provision "file", source: "~/.ssh/id_ed25519.pub", destination: ".ssh/id_ed25519.pub"
 end
