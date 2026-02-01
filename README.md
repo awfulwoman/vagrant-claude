@@ -13,10 +13,16 @@ You will need the following dependencies installed on your host machine:
 * VirtualBox
 * Vagrant
 
-### MacOS
+### Installing Dependencies on MacOS
 
 ```bash
 brew install virtualbox vagrant --cask
+```
+
+### Installing Dependencies on Ubuntu/Debian
+
+```bash
+apt install virtualbox vagrant
 ```
 
 ## Usage
