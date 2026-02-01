@@ -39,7 +39,9 @@ Log into the VM.
 vagrant ssh
 ```
 
-You'll find yourself in the working directory. Open Claude.
+You'll find yourself in the working directory of the VM. Run `ls` to confirm it can see the files on the host.
+
+You can now start Claude Code.
 
 ```bash
 claude
