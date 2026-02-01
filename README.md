@@ -59,3 +59,7 @@ May the lord have mercy on your soul.
 
 * If you have an Anthropic subscription this will require you to login the first time you use the VM.
 * This Vagrantfile is quite opinionated as to what gets copied over. Thankfully you can just edit it to match your needs.
+
+## Resources
+
+* Based upon [an idea by Emil Burzo](https://blog.emilburzo.com/2026/01/running-claude-code-dangerously-safely/).
