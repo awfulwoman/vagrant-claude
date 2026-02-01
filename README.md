@@ -59,7 +59,7 @@ May the lord have mercy on your soul.
 
 * Yes, this is quite wasteful. It spins up an entire VM. But see the original post in the resources to see why this might be the least bad idea.
 * If you have an Anthropic subscription this will require you to login the first time you use the VM.
-* This Vagrantfile is quite opinionated as to what gets copied over. Thankfully you can just edit it to match your needs.
+* This Vagrantfile is quite opinionated as to what gets copied over. Thankfully you can just edit it to match your needs. Think of this as a starting point.
 
 ## Alternatives
 
