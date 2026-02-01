@@ -1,36 +1,20 @@
-# vagrant-claude
+# Vagrant Claude Wrapper
 
-Vagrant config for Ubuntu 24.04 dev VM with Claude CLI.
+Use Claude Code in paranoid mode.
 
-## Setup
+This Vagrant config spins up an Ubuntu 24.04 VM, configures it with Claude Code, and gives the VM access **only** to the current host directory.
 
-Includes:
-- Docker
-- Node.js (LTS via NVM)
-- Claude CLI
-- Git, gh, curl, wget, jq, htop
+In this way you can run Claude Code without it having access to your entire machine (because do you trust an LLM **that** much?).
 
-VM specs:
-- 4GB RAM
-- 2 CPUs
-- Synced folder: `.` → `/agent-workspace`
+## Prerequisites
+
+You will need the following dependencies installed on your host machine:
+
+* VirtualBox
+* Vagrant
 
 ## Usage
 
-```bash
-# Start VM
-vagrant up
-
-# SSH into VM
-vagrant ssh
-
-# Stop VM
-vagrant halt
-
-# Destroy VM
-vagrant destroy
-```
-
-## SSH Keys
-
-Imports SSH keys from GitHub user `awfulwoman` during provisioning.
+1. Copy the [Vagrantfile](./Vagrantfile) to your project.
+2. Run `vagrant up`. This will take a few minutes the first time you use it, as it downloads an image, provisions a VM and handles software installation & updates.
+3. Once provisioned run `vagrant ssh`.

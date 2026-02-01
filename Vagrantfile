@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--audio", "none"]
     vb.customize ["modifyvm", :id, "--usb", "off"]
   end
-  
+
   # Provision as root
   config.vm.provision "shell", inline: <<-SHELL
     export DEBIAN_FRONTEND=noninteractive
@@ -95,5 +95,7 @@ EOF
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "file", source: "~/.ssh/id_ed25519", destination: ".ssh/id_ed25519"
   config.vm.provision "file", source: "~/.ssh/id_ed25519.pub", destination: ".ssh/id_ed25519.pub"
+  config.vm.provision "file", source: "~/.claude/CLAUDE.md", destination: ".claude/CLAUDE.md"
+  config.vm.provision "file", source: "~/.claude/settings.json", destination: ".claude/settings.json"
 
 end
