@@ -21,22 +21,28 @@ brew install virtualbox vagrant --cask
 
 ## Usage
 
-**Copy the [Vagrantfile](./Vagrantfile) to your project.**
+Copy the [Vagrantfile](./Vagrantfile) to your project.
 
 ```bash
 curl -O https://raw.githubusercontent.com/awfulwoman/vagrant-claude/refs/heads/main/Vagrantfile
 ```
 
-**Initialise the VM.** This will take a few minutes the first time you use it, as it downloads an image, provisions a VM and handles software installation & updates.
+Initialise the VM. This will take a few minutes the first time you use it, as it downloads an image, provisions a VM and handles software installation & Ubuntu updates.
 
 ```bash
 vagrant up
 ```
 
-**Log into the VM.**
+Log into the VM.
 
 ```bash
 vagrant ssh
 ```
 
-You'll find yourself in the working directory.
+You'll find yourself in the working directory. Open Claude.
+
+```bash
+claude
+```
+
+May the lord have mercy on your soul.
