@@ -1,6 +1,7 @@
 # This Vagrantfile is used to wrap a VM around instances of Claude Code. 
 # This enables Claude to be run with much more relaxed permissions, 
-# without worrying about it going mental and trashing your laptop.
+# without worrying about it going mental and trashing your laptop or leaking
+# personal info.
 
 vm_name = File.basename(Dir.getwd)
 workspace_path = "/workspace-#{vm_name}"
