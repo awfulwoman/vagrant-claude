@@ -1,4 +1,6 @@
-# This Vagrantfile is used to wrap a VM around instances of Claude Code. This enables Claude to be run with much more relaxed permissions, without worrying about it going mental and trashing your laptop.
+# This Vagrantfile is used to wrap a VM around instances of Claude Code. 
+# This enables Claude to be run with much more relaxed permissions, 
+# without worrying about it going mental and trashing your laptop.
 
 vm_name = File.basename(Dir.getwd)
 workspace_path = "/workspace-#{vm_name}"
@@ -37,16 +39,14 @@ Vagrant.configure("2") do |config|
     echo "# USER SETUP"
     echo "#########################################"
     usermod -aG docker vagrant
-    chown -R vagrant:vagrant #{workspace_path}
-    
+    chown -R vagrant:vagrant #{workspace_path} 
   SHELL
 end
 
 
 # Provision as vagrant user
 Vagrant.configure("2") do |config|
-  $script = <<-SCRIPT
-
+  $script_nvm = <<-SCRIPT_NVM
   echo "#########################################"
   echo "# NVM SETUP"
   echo "#########################################"
@@ -55,30 +55,40 @@ Vagrant.configure("2") do |config|
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
   nvm install --lts
   nvm alias default lts/*
+  SCRIPT_NVM
 
+  $script_claude = <<-SCRIPT_CLAUDE
   echo "#########################################"
   echo "# CLAUDE SETUP"
   echo "#########################################"
   curl -fsSL https://claude.ai/install.sh | bash
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+  SCRIPT_CLAUDE
 
-
+  $script_user = <<-SCRIPT_USER
   echo "#########################################"
   echo "# CUSTOMISE USER"
   echo "#########################################"
   echo "cd #{workspace_path}" >> $HOME/.bashrc
+  SCRIPT_USER
+  
+  # The weird indentation is, sadly, important here
+  # https://stackoverflow.com/a/75320225
+  $script_ssh_agent = <<-'SCRIPT_SSHAGENT'
+    cat >> $HOME/.bashrc << 'EOF'
+if [ ! -f ~/.ssh_reminder_shown ]; then
+  eval "$(ssh-agent -s)" > /dev/null
+  echo "==> SSH agent started. Add your key:"
+  ssh-add ~/.ssh/id_ed25519 && touch ~/.ssh_reminder_shown
+fi
+EOF
+  SCRIPT_SSHAGENT
 
-  # Auto-start ssh-agent on first login
-  cat >> $HOME/.bashrc << 'EOF'
-  if [ ! -f ~/.ssh_reminder_shown ]; then
-    eval "$(ssh-agent -s)" > /dev/null
-    echo "==> SSH agent started. Add your key:"
-    ssh-add ~/.ssh/id_ed25519 && touch ~/.ssh_reminder_shown
-  fi
-  EOF
-
-  SCRIPT
-  config.vm.provision "shell", inline: $script, privileged: false
+  # Run scripts
+  config.vm.provision "shell", inline: $script_nvm, privileged: false
+  config.vm.provision "shell", inline: $script_claude, privileged: false
+  config.vm.provision "shell", inline: $script_user, privileged: false
+  config.vm.provision "shell", inline: $script_ssh_agent, privileged: false
 
   # Copy over credentials to working VM
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
