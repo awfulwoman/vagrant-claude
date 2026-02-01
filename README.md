@@ -54,3 +54,8 @@ claude
 ```
 
 May the lord have mercy on your soul.
+
+## Limitations
+
+* If you have an Anthropic subscription this will require you to login the first time you use the VM.
+* This Vagrantfile is quite opinionated as to what gets copied over. Thankfully you can just edit it to match your needs.
