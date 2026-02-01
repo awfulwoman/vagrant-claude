@@ -57,8 +57,16 @@ May the lord have mercy on your soul.
 
 ## Limitations
 
+* Yes, this is quite wasteful. It spins up an entire VM. But see the original post in the resources to see why this might be the least bad idea.
 * If you have an Anthropic subscription this will require you to login the first time you use the VM.
 * This Vagrantfile is quite opinionated as to what gets copied over. Thankfully you can just edit it to match your needs.
+
+## Alternatives
+
+* Run Claude Code on your machine with YOLO mode turned on. (lol)
+* Use a dedicated VM on a server in your network.
+* Dedicate a physical machine to running Claude Code. Bit wasteful.
+* All the other alternatives mentioned in the original post.
 
 ## Resources
 
