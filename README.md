@@ -13,8 +13,30 @@ You will need the following dependencies installed on your host machine:
 * VirtualBox
 * Vagrant
 
+### MacOS
+
+```bash
+brew install virtualbox vagrant --cask
+```
+
 ## Usage
 
-1. Copy the [Vagrantfile](./Vagrantfile) to your project.
-2. Run `vagrant up`. This will take a few minutes the first time you use it, as it downloads an image, provisions a VM and handles software installation & updates.
-3. Once provisioned run `vagrant ssh`.
+**Copy the [Vagrantfile](./Vagrantfile) to your project.**
+
+```bash
+curl -O https://raw.githubusercontent.com/awfulwoman/vagrant-claude/refs/heads/main/Vagrantfile
+```
+
+**Initialise the VM.** This will take a few minutes the first time you use it, as it downloads an image, provisions a VM and handles software installation & updates.
+
+```bash
+vagrant up
+```
+
+**Log into the VM.**
+
+```bash
+vagrant ssh
+```
+
+You'll find yourself in the working directory.
