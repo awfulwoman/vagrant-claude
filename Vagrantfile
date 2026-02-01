@@ -95,6 +95,7 @@ EOF
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "file", source: "~/.ssh/id_ed25519", destination: ".ssh/id_ed25519"
   config.vm.provision "file", source: "~/.ssh/id_ed25519.pub", destination: ".ssh/id_ed25519.pub"
+  config.vm.provision "file", source: "~/.claude.json", destination: ".claude.json"
   config.vm.provision "file", source: "~/.claude/CLAUDE.md", destination: ".claude/CLAUDE.md"
   config.vm.provision "file", source: "~/.claude/settings.json", destination: ".claude/settings.json"
 
