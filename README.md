@@ -2,7 +2,7 @@
 
 Use Claude Code in paranoid mode.
 
-This Vagrant config spins up an Ubuntu 24.04 VM, configures it with Claude Code, and gives the VM access **only** to the current host directory. To make things transparent it also copies in your current users SSH keys and your git config.
+This Vagrant config spins up an [Ubuntu 24.04 VM](https://portal.cloud.hashicorp.com/vagrant/discover/bento/ubuntu-24.04), [configures it with Claude Code](https://code.claude.com/docs/en/quickstart#step-1:-install-claude-code), and gives the VM access **only** to the current host directory. To make things more immediately usable it also copies in your current users SSH keys and your git config.
 
 In this way you can run Claude Code without it having access to your entire machine (because do you trust an LLM **that** much?).
 
